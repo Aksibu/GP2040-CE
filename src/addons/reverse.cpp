@@ -1,3 +1,4 @@
+cpp
 #include "addons/reverse.h"
 #include "storagemanager.h"
 #include "GamepadEnums.h"
@@ -37,6 +38,7 @@ void ReverseInput::setup()
     actionDown = options.actionDown;
     actionLeft = options.actionLeft;
     actionRight = options.actionRight;
+    swapFaceButtons = options.swapFaceButtons;
 
     Gamepad * gamepad = Storage::getInstance().GetGamepad();
     mapDpadUp    = gamepad->mapDpadUp;
@@ -81,6 +83,16 @@ void ReverseInput::process()
         | input(gamepad->state.dpad & mapDpadLeft->buttonMask,  mapDpadLeft->buttonMask,    mapDpadRight->buttonMask,   actionLeft,     invertXAxis)
         | input(gamepad->state.dpad & mapDpadRight->buttonMask, mapDpadRight->buttonMask,   mapDpadLeft->buttonMask,    actionRight,    invertXAxis)
     ;
+
+    if (state && swapFaceButtons) {
+        uint16_t buttons = gamepad->state.buttons;
+        uint16_t swappedButtons = buttons & ~(GAMEPAD_MASK_B1 | GAMEPAD_MASK_B2 | GAMEPAD_MASK_B3 | GAMEPAD_MASK_B4);
+        if (buttons & GAMEPAD_MASK_B1) swappedButtons |= GAMEPAD_MASK_B2;
+        if (buttons & GAMEPAD_MASK_B2) swappedButtons |= GAMEPAD_MASK_B1;
+        if (buttons & GAMEPAD_MASK_B3) swappedButtons |= GAMEPAD_MASK_B4;
+        if (buttons & GAMEPAD_MASK_B4) swappedButtons |= GAMEPAD_MASK_B3;
+        gamepad->state.buttons = swappedButtons;
+    }
 
     if (pinLED != 0xff) {
         gpio_put(pinLED, !state);

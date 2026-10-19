@@ -67,6 +67,8 @@ private:
     uint8_t actionDown;
     uint8_t actionLeft;
     uint8_t actionRight;
+
+    bool swapFaceButtons;
 };
 
 #endif // _Reverse_H_
