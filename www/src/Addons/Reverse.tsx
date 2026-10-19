@@ -1,3 +1,4 @@
+tsx
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormCheck, Row } from 'react-bootstrap';
@@ -23,6 +24,7 @@ export const reverseScheme = {
 		.number()
 		.label('Reverse Pin LED')
 		.validatePinWhenValue('ReverseInputEnabled'),
+	swapFaceButtons: yup.boolean().label('Swap Face Buttons'),
 };
 
 export const reverseState = {
@@ -32,6 +34,7 @@ export const reverseState = {
 	reverseActionDown: 0,
 	reverseActionLeft: 0,
 	reverseActionRight: 0,
+	swapFaceButtons: 0,
 };
 
 const Reverse = ({
@@ -140,6 +143,20 @@ const Reverse = ({
 							</option>
 						))}
 					</FormSelect>
+				</Row>
+				<Row className="mb-3">
+					<FormCheck
+						label={t('AddonsConfig:input-reverse-swap-face-buttons-label', 'Swap 4 Face Buttons')}
+						type="switch"
+						id="ReverseSwapFaceButtons"
+						reverse
+						isInvalid={false}
+						checked={Boolean(values.swapFaceButtons)}
+						onChange={(e) => {
+							handleCheckbox('swapFaceButtons');
+							handleChange(e);
+						}}
+					/>
 				</Row>
 			</div>
 			<FormCheck

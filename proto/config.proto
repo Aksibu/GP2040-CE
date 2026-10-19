@@ -1002,6 +1002,17 @@ message MigrationHistory
     optional bool gpioMappingsMigrated = 2 [default = false];
     optional bool buttonProfilesMigrated = 3 [default = false];
     optional bool profileEnabledFlagsMigrated = 4 [default = false];
+proto
+syntax = "proto3";
+message ReverseOptions {
+    bool enabled = 1;
+    int32 buttonPin = 2;
+    int32 ledPin = 3;
+    uint32 actionUp = 4;
+    uint32 actionDown = 5;
+    uint32 actionLeft = 6;
+    uint32 actionRight = 7;
+    bool swapFaceButtons = 8;
     optional bool heTriggerSelectPinsMigrated = 5 [default = false];
 }
 
