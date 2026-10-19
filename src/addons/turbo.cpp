@@ -41,6 +41,10 @@ void TurboInput::setup(){
     uint32_t now = getMillis();
 
     // Turbo Dial
+    #undef TURBO_SHOT_MAX
+    #define TURBO_SHOT_MAX 60
+    #undef TURBO_DIAL_INCREMENTS
+    #define TURBO_DIAL_INCREMENTS (0xFFF / (TURBO_SHOT_MAX - TURBO_SHOT_MIN)) // 12-bit ADC
     uint8_t shotCount = std::clamp<uint8_t>(options.shotCount, TURBO_SHOT_MIN, TURBO_SHOT_MAX);
     if (isValidPin(options.shmupDialPin)) {
         hasShmupDial = true;
