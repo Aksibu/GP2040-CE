@@ -63,6 +63,54 @@ export const turboScheme = {
 		.number()
 		.label('Turbo Shot Count')
 		.validateRangeWhenValue('TurboInputEnabled', 2, 30),
+	turboShotCountB1: yup
+		.number()
+		.label('B1 Turbo Shot Count')
+		.transform((val, orig) => (orig === '' ? 0 : val))
+		.nullable()
+		.validateRangeWhenValue('TurboInputEnabled', 0, 30),
+	turboShotCountB2: yup
+		.number()
+		.label('B2 Turbo Shot Count')
+		.transform((val, orig) => (orig === '' ? 0 : val))
+		.nullable()
+		.validateRangeWhenValue('TurboInputEnabled', 0, 30),
+	turboShotCountB3: yup
+		.number()
+		.label('B3 Turbo Shot Count')
+		.transform((val, orig) => (orig === '' ? 0 : val))
+		.nullable()
+		.validateRangeWhenValue('TurboInputEnabled', 0, 30),
+	turboShotCountB4: yup
+		.number()
+		.label('B4 Turbo Shot Count')
+		.transform((val, orig) => (orig === '' ? 0 : val))
+		.nullable()
+		.validateRangeWhenValue('TurboInputEnabled', 0, 30),
+	turboShotCountL1: yup
+		.number()
+		.label('L1 Turbo Shot Count')
+		.transform((val, orig) => (orig === '' ? 0 : val))
+		.nullable()
+		.validateRangeWhenValue('TurboInputEnabled', 0, 30),
+	turboShotCountR1: yup
+		.number()
+		.label('R1 Turbo Shot Count')
+		.transform((val, orig) => (orig === '' ? 0 : val))
+		.nullable()
+		.validateRangeWhenValue('TurboInputEnabled', 0, 30),
+	turboShotCountL2: yup
+		.number()
+		.label('L2 Turbo Shot Count')
+		.transform((val, orig) => (orig === '' ? 0 : val))
+		.nullable()
+		.validateRangeWhenValue('TurboInputEnabled', 0, 30),
+	turboShotCountR2: yup
+		.number()
+		.label('R2 Turbo Shot Count')
+		.transform((val, orig) => (orig === '' ? 0 : val))
+		.nullable()
+		.validateRangeWhenValue('TurboInputEnabled', 0, 30),
 	shmupMode: yup
 		.number()
 		.label('Shmup Mode Enabled')
@@ -125,6 +173,14 @@ export const turboState = {
 	TurboInputEnabled: 0,
 	turboPinLED: -1,
 	turboShotCount: 5,
+	turboShotCountB1: 0,
+	turboShotCountB2: 0,
+	turboShotCountB3: 0,
+	turboShotCountB4: 0,
+	turboShotCountL1: 0,
+	turboShotCountR1: 0,
+	turboShotCountL2: 0,
+	turboShotCountR2: 0,
 	turboLedType: 0,
 };
 
@@ -228,6 +284,155 @@ const Turbo = ({
 					>
 						<AnalogPinOptions />
 					</FormSelect>
+				</Row>
+				<Row className="mb-3">
+					<div className="col-12 mb-2">
+						<strong>Action Button Custom Rates (Shots/sec, 0 or empty for default)</strong>
+					</div>
+					<FormControl
+						type="number"
+						label="B1 Rate"
+						name="turboShotCountB1"
+						className="form-control-sm"
+						groupClassName="col-sm-3 mb-3"
+						value={values.turboShotCountB1 || ''}
+						error={errors.turboShotCountB1}
+						isInvalid={Boolean(errors.turboShotCountB1)}
+						onChange={(e) =>
+							setFieldValue(
+								'turboShotCountB1',
+								e.target.value === '' ? 0 : parseInt(e.target.value, 10),
+							)
+						}
+						min={0}
+						max={30}
+					/>
+					<FormControl
+						type="number"
+						label="B2 Rate"
+						name="turboShotCountB2"
+						className="form-control-sm"
+						groupClassName="col-sm-3 mb-3"
+						value={values.turboShotCountB2 || ''}
+						error={errors.turboShotCountB2}
+						isInvalid={Boolean(errors.turboShotCountB2)}
+						onChange={(e) =>
+							setFieldValue(
+								'turboShotCountB2',
+								e.target.value === '' ? 0 : parseInt(e.target.value, 10),
+							)
+						}
+						min={0}
+						max={30}
+					/>
+					<FormControl
+						type="number"
+						label="B3 Rate"
+						name="turboShotCountB3"
+						className="form-control-sm"
+						groupClassName="col-sm-3 mb-3"
+						value={values.turboShotCountB3 || ''}
+						error={errors.turboShotCountB3}
+						isInvalid={Boolean(errors.turboShotCountB3)}
+						onChange={(e) =>
+							setFieldValue(
+								'turboShotCountB3',
+								e.target.value === '' ? 0 : parseInt(e.target.value, 10),
+							)
+						}
+						min={0}
+						max={30}
+					/>
+					<FormControl
+						type="number"
+						label="B4 Rate"
+						name="turboShotCountB4"
+						className="form-control-sm"
+						groupClassName="col-sm-3 mb-3"
+						value={values.turboShotCountB4 || ''}
+						error={errors.turboShotCountB4}
+						isInvalid={Boolean(errors.turboShotCountB4)}
+						onChange={(e) =>
+							setFieldValue(
+								'turboShotCountB4',
+								e.target.value === '' ? 0 : parseInt(e.target.value, 10),
+							)
+						}
+						min={0}
+						max={30}
+					/>
+					<FormControl
+						type="number"
+						label="L1 Rate"
+						name="turboShotCountL1"
+						className="form-control-sm"
+						groupClassName="col-sm-3 mb-3"
+						value={values.turboShotCountL1 || ''}
+						error={errors.turboShotCountL1}
+						isInvalid={Boolean(errors.turboShotCountL1)}
+						onChange={(e) =>
+							setFieldValue(
+								'turboShotCountL1',
+								e.target.value === '' ? 0 : parseInt(e.target.value, 10),
+							)
+						}
+						min={0}
+						max={30}
+					/>
+					<FormControl
+						type="number"
+						label="R1 Rate"
+						name="turboShotCountR1"
+						className="form-control-sm"
+						groupClassName="col-sm-3 mb-3"
+						value={values.turboShotCountR1 || ''}
+						error={errors.turboShotCountR1}
+						isInvalid={Boolean(errors.turboShotCountR1)}
+						onChange={(e) =>
+							setFieldValue(
+								'turboShotCountR1',
+								e.target.value === '' ? 0 : parseInt(e.target.value, 10),
+							)
+						}
+						min={0}
+						max={30}
+					/>
+					<FormControl
+						type="number"
+						label="L2 Rate"
+						name="turboShotCountL2"
+						className="form-control-sm"
+						groupClassName="col-sm-3 mb-3"
+						value={values.turboShotCountL2 || ''}
+						error={errors.turboShotCountL2}
+						isInvalid={Boolean(errors.turboShotCountL2)}
+						onChange={(e) =>
+							setFieldValue(
+								'turboShotCountL2',
+								e.target.value === '' ? 0 : parseInt(e.target.value, 10),
+							)
+						}
+						min={0}
+						max={30}
+					/>
+					<FormControl
+						type="number"
+						label="R2 Rate"
+						name="turboShotCountR2"
+						className="form-control-sm"
+						groupClassName="col-sm-3 mb-3"
+						value={values.turboShotCountR2 || ''}
+						error={errors.turboShotCountR2}
+						isInvalid={Boolean(errors.turboShotCountR2)}
+						onChange={(e) =>
+							setFieldValue(
+								'turboShotCountR2',
+								e.target.value === '' ? 0 : parseInt(e.target.value, 10),
+							)
+						}
+						min={0}
+						max={30}
+					/>
 				</Row>
 				<Row className="mb-3">
 					<FormCheck

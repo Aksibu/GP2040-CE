@@ -104,6 +104,10 @@ void TurboInput::setup(){
     lastDpad = 0;
     bTurboFlicker = false;
     nextTimer = getMicro();
+    for (uint8_t b = 0; b < 16; b++) {
+        buttonNextTimer[b] = nextTimer;
+        buttonFlicker[b] = false;
+    }
     encoderValue = shotCount;
     updateTurboShotCount(shotCount, false);
 }
