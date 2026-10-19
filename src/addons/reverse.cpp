@@ -37,12 +37,17 @@ void ReverseInput::setup()
     actionDown = options.actionDown;
     actionLeft = options.actionLeft;
     actionRight = options.actionRight;
+    buttonSwap = options.buttonSwap;
 
     Gamepad * gamepad = Storage::getInstance().GetGamepad();
     mapDpadUp    = gamepad->mapDpadUp;
     mapDpadDown  = gamepad->mapDpadDown;
     mapDpadLeft  = gamepad->mapDpadLeft;
     mapDpadRight = gamepad->mapDpadRight;
+    mapButtonB1  = gamepad->mapButtonB1;
+    mapButtonB2  = gamepad->mapButtonB2;
+    mapButtonB3  = gamepad->mapButtonB3;
+    mapButtonB4  = gamepad->mapButtonB4;
 
     invertXAxis = gamepad->getOptions().invertXAxis;
     invertYAxis = gamepad->getOptions().invertYAxis;
@@ -81,6 +86,23 @@ void ReverseInput::process()
         | input(gamepad->state.dpad & mapDpadLeft->buttonMask,  mapDpadLeft->buttonMask,    mapDpadRight->buttonMask,   actionLeft,     invertXAxis)
         | input(gamepad->state.dpad & mapDpadRight->buttonMask, mapDpadRight->buttonMask,   mapDpadLeft->buttonMask,    actionRight,    invertXAxis)
     ;
+
+    if (state && buttonSwap) {
+        uint16_t buttons = gamepad->state.buttons;
+        uint16_t b1 = buttons & mapButtonB1->buttonMask;
+        uint16_t b2 = buttons & mapButtonB2->buttonMask;
+        uint16_t b3 = buttons & mapButtonB3->buttonMask;
+        uint16_t b4 = buttons & mapButtonB4->buttonMask;
+
+        buttons &= ~(mapButtonB1->buttonMask | mapButtonB2->buttonMask | mapButtonB3->buttonMask | mapButtonB4->buttonMask);
+
+        if (b1) buttons |= mapButtonB2->buttonMask;
+        if (b2) buttons |= mapButtonB1->buttonMask;
+        if (b3) buttons |= mapButtonB4->buttonMask;
+        if (b4) buttons |= mapButtonB3->buttonMask;
+
+        gamepad->state.buttons = buttons;
+    }
 
     if (pinLED != 0xff) {
         gpio_put(pinLED, !state);
